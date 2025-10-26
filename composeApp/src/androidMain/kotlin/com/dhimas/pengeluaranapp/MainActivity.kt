@@ -6,10 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.dhimas.pengeluaranapp.di.appModules
 import com.dhimas.pengeluaranapp.util.AndroidContextHolder
-import org.koin.core.context.startKoin
-import org.koin.core.context.GlobalContext
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,13 +14,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         AndroidContextHolder.init(this)
-
-        // Initialize Koin only if not already started
-        if (GlobalContext.getOrNull() == null) {
-            startKoin {
-                modules(appModules)
-            }
-        }
 
         setContent {
             App()
