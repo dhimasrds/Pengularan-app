@@ -76,6 +76,8 @@ kotlin {
             // Room (Android only)
             implementation(libs.androidx.room.runtime)
             implementation(libs.androidx.room.ktx)
+            // Koin Android
+            implementation(libs.koin.android)
         }
 
         iosMain.dependencies {
