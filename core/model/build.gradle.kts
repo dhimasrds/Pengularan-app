@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
@@ -12,7 +13,7 @@ kotlin {
     )
     sourceSets {
         commonMain.dependencies {
-            // No deps for now
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
         }
         androidMain.dependencies {
             // Android-only deps if needed

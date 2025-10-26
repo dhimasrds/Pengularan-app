@@ -1,4 +1,4 @@
-package com.dhimas.pengeluaranapp.data.local.database.entities
+package com.dhimas.pengeluaranapp.core.data.local.database.entities
 
 data class ExpenseEntity(
     var id: String = "",
@@ -10,3 +10,4 @@ data class ExpenseEntity(
     var createdAt: Long = 0,
     var updatedAt: Long = 0
 )
+

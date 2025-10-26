@@ -18,6 +18,9 @@ kotlin {
             implementation(libs.ktor.serialization.json)
             implementation(libs.ktor.client.logging)
             implementation(libs.koin.core)
+
+            // Core modules
+            implementation(project(":core:model"))
         }
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)

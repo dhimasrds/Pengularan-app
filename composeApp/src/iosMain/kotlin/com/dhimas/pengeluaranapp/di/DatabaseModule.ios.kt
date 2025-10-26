@@ -1,7 +1,7 @@
 package com.dhimas.pengeluaranapp.di
 
-import com.dhimas.pengeluaranapp.data.local.datasource.InMemoryLocalUserDataSource
-import com.dhimas.pengeluaranapp.data.local.datasource.LocalUserDataSource
+import com.dhimas.pengeluaranapp.core.data.local.datasource.InMemoryLocalUserDataSource
+import com.dhimas.pengeluaranapp.core.data.local.datasource.LocalUserDataSource
 import org.koin.core.module.Module
 import org.koin.dsl.module
 

@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import com.dhimas.pengeluaranapp.domain.usecase.LoginUseCase
+import com.dhimas.pengeluaranapp.core.domain.usecase.LoginUseCase
 
 class LoginScreenModel(
     private val loginUseCase: LoginUseCase

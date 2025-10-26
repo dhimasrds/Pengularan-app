@@ -1,18 +1,13 @@
-package com.dhimas.pengeluaranapp.data.remote.dto
+package com.dhimas.pengeluaranapp.core.model
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class LoginResponse(
-    val token: String,
-    val user: UserDto
-)
-
-@Serializable
-data class UserDto(
+data class User(
     val id: String,
     val username: String,
     val email: String,
     val createdAt: Long,
     val updatedAt: Long
 )
+

@@ -1,7 +1,7 @@
 package com.dhimas.pengeluaranapp.data.remote.api
 
-import com.dhimas.pengeluaranapp.data.remote.dto.LoginRequest
-import com.dhimas.pengeluaranapp.data.remote.dto.LoginResponse
+import com.dhimas.pengeluaranapp.core.network.dto.LoginRequest
+import com.dhimas.pengeluaranapp.core.network.dto.LoginResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.post

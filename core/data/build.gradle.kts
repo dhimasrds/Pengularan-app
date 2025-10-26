@@ -18,9 +18,17 @@ kotlin {
             implementation(libs.ktor.serialization.json)
             implementation(libs.ktor.client.logging)
             implementation(libs.koin.core)
+            implementation(libs.ktorfit)
+
+            // Core modules
+            implementation(projects.core.model)
+            implementation(projects.core.domain)
+            implementation(projects.core.network)
         }
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.androidx.room.ktx)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

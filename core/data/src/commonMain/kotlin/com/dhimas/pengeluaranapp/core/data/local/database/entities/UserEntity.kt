@@ -1,4 +1,4 @@
-package com.dhimas.pengeluaranapp.data.local.database.entities
+package com.dhimas.pengeluaranapp.core.data.local.database.entities
 
 data class UserEntity(
     var id: String = "",
@@ -7,3 +7,4 @@ data class UserEntity(
     var createdAt: Long = 0,
     var updatedAt: Long = 0
 )
+

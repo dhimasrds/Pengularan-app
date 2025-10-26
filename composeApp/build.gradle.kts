@@ -69,6 +69,15 @@ kotlin {
 
             // Resources
             implementation(libs.moko.resources)
+
+            // Feature modules
+            implementation(projects.features.login)
+
+            // Core modules
+            implementation(projects.core.domain)
+            implementation(projects.core.model)
+            implementation(projects.core.network)
+            implementation(projects.core.data)
         }
 
         androidMain.dependencies {

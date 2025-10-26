@@ -1,6 +1,6 @@
 package com.dhimas.pengeluaranapp.data.local.datasource
 
-import com.dhimas.pengeluaranapp.domain.model.User
+import com.dhimas.pengeluaranapp.core.model.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 

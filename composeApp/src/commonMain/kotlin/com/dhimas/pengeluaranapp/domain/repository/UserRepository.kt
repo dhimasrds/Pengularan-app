@@ -1,7 +1,7 @@
 package com.dhimas.pengeluaranapp.domain.repository
 
 import kotlinx.coroutines.flow.Flow
-import com.dhimas.pengeluaranapp.domain.model.User
+import com.dhimas.pengeluaranapp.core.model.User
 
 interface UserRepository {
     suspend fun loginUser(email: String, password: String): Result<User>

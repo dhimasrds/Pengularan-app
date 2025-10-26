@@ -1,15 +1,13 @@
 package com.dhimas.pengeluaranapp.di
 
-import com.dhimas.pengeluaranapp.di.networkModule
-import com.dhimas.pengeluaranapp.di.viewModelModule
-import com.dhimas.pengeluaranapp.di.apiModule
-import com.dhimas.pengeluaranapp.di.repositoryModule
+import com.dhimas.pengeluaranapp.features.login.impl.loginFeatureModule
 
 val appModules = listOf(
     networkModule,
     platformDatabaseModule,
     apiModule,
     repositoryModule,
-    viewModelModule
+    viewModelModule,
+    loginFeatureModule
 )
 

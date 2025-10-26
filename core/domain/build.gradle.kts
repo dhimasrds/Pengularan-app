@@ -12,7 +12,8 @@ kotlin {
     )
     sourceSets {
         commonMain.dependencies {
-            // No deps for now
+            implementation(project(":core:model"))
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
         }
     }
 }

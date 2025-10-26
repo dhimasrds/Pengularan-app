@@ -1,7 +1,7 @@
 package com.dhimas.pengeluaranapp.domain.usecase
 
 import com.dhimas.pengeluaranapp.domain.repository.UserRepository
-import com.dhimas.pengeluaranapp.domain.model.User
+import com.dhimas.pengeluaranapp.core.model.User
 
 class LoginUseCase(
     private val userRepository: UserRepository

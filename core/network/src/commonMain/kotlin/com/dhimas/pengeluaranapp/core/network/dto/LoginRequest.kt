@@ -1,4 +1,4 @@
-package com.dhimas.pengeluaranapp.data.remote.dto
+package com.dhimas.pengeluaranapp.core.network.dto
 
 import kotlinx.serialization.Serializable
 
@@ -7,3 +7,4 @@ data class LoginRequest(
     val email: String,
     val password: String
 )
+
