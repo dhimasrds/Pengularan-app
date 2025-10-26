@@ -33,3 +33,12 @@ in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and r
 ---
 
 Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+
+
+## Development Guide
+
+Untuk menambah fitur baru sesuai arsitektur modular dan Clean Architecture yang berlaku, ikuti panduan berikut:
+- Lihat docs/FEATURE_DEVELOPMENT_GUIDE.md
+- Contoh modul fitur yang sudah ada: :features:login dan :features:home
+
+Panduan mencakup: penamaan modul, template Gradle, kontrak FeatureApi, modul Koin, struktur Screen/ViewModel, aturan dependensi, serta checklist validasi sebelum commit.
