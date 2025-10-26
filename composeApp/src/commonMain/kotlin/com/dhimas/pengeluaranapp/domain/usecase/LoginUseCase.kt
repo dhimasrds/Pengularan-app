@@ -6,7 +6,7 @@ import com.dhimas.pengeluaranapp.core.model.User
 class LoginUseCase(
     private val userRepository: UserRepository
 ) {
-    suspend operator fun invoke(email: String, password: String): Result<User> {
+    suspend operator fun invoke(email: String, password: String): Result<User?> {
         return try {
             if (email.isBlank() || password.isBlank()) {
                 Result.failure(Exception("Email and password cannot be empty"))

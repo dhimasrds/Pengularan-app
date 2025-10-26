@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(user: UserRoomEntity)
+    suspend fun upsert(user: UserRoomEntity?)
 
     @Query("SELECT * FROM users LIMIT 1")
     suspend fun getCurrent(): UserRoomEntity?

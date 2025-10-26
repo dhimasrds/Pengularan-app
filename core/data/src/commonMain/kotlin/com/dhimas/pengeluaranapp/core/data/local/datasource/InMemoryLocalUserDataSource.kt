@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 class InMemoryLocalUserDataSource : LocalUserDataSource {
     private val userFlow = MutableStateFlow<User?>(null)
 
-    override suspend fun saveUser(user: User) {
+    override suspend fun saveUser(user: User?) {
         userFlow.value = user
     }
 

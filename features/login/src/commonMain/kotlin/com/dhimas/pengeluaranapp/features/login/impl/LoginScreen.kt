@@ -1,7 +1,5 @@
 package com.dhimas.pengeluaranapp.features.login.impl
 
-import LoginScreenModel
-import LoginUiState
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import androidx.compose.foundation.layout.*
@@ -14,11 +12,20 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 
-class LoginScreen : Screen {
+class LoginScreen(
+    private val onLoginSuccess: (() -> Unit)? = null
+) : Screen {
     @Composable
     override fun Content() {
         val screenModel = koinScreenModel<LoginScreenModel>()
         val uiState by screenModel.uiState.collectAsState()
+
+        // Handle navigation on successful login
+        LaunchedEffect(uiState.isSuccess) {
+            if (uiState.isSuccess) {
+                onLoginSuccess?.invoke()
+            }
+        }
 
         LoginScreenContent(
             uiState = uiState,
@@ -99,6 +106,8 @@ private fun LoginScreenContent(
         }
 
         uiState.error?.let { error ->
+
+            println(error)
             Spacer(modifier = Modifier.height(16.dp))
             Card(
                 modifier = Modifier.fillMaxWidth(),

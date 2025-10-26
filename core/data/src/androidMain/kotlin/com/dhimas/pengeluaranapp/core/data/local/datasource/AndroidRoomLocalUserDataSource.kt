@@ -10,8 +10,8 @@ class AndroidRoomLocalUserDataSource(
     private val userDao: UserDao
 ) : LocalUserDataSource {
 
-    override suspend fun saveUser(user: User) {
-        userDao.upsert(user.toRoom())
+    override suspend fun saveUser(user: User?) {
+        user?.toRoom()?.let { userDao.upsert(it) }
     }
 
     override suspend fun getCurrentUser(): User? {
@@ -25,7 +25,7 @@ class AndroidRoomLocalUserDataSource(
 
 private fun User.toRoom() = UserRoomEntity(
     id = id,
-    username = username,
+    username = username.orEmpty(),
     email = email,
     createdAt = createdAt,
     updatedAt = updatedAt

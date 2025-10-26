@@ -14,6 +14,7 @@ kotlin {
         commonMain.dependencies {
             implementation(project(":core:model"))
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
+            implementation(libs.koin.core)
         }
     }
 }

@@ -1,8 +1,8 @@
 package com.dhimas.pengeluaranapp.di
 
 import org.koin.dsl.module
-import com.dhimas.pengeluaranapp.core.data.remote.client.httpClient
 
+// NetworkModule is now replaced by coreNetworkModule
 val networkModule = module {
-    single { httpClient() }
+    // Empty - HttpClient is now provided by coreNetworkModule
 }

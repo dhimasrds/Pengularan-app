@@ -1,21 +1,21 @@
 package com.dhimas.pengeluaranapp.core.data.repository
 
-import kotlinx.coroutines.flow.Flow
+import com.dhimas.pengeluaranapp.core.data.local.datasource.LocalUserDataSource
+import com.dhimas.pengeluaranapp.core.data.remote.api.AuthApi
 import com.dhimas.pengeluaranapp.core.domain.repository.UserRepository
 import com.dhimas.pengeluaranapp.core.model.User
-import com.dhimas.pengeluaranapp.core.data.remote.api.AuthApi
 import com.dhimas.pengeluaranapp.core.network.dto.LoginRequest
-import com.dhimas.pengeluaranapp.core.data.local.datasource.LocalUserDataSource
+import kotlinx.coroutines.flow.Flow
 
 class UserRepositoryImpl(
     private val localUserDataSource: LocalUserDataSource,
     private val authApi: AuthApi
 ) : UserRepository {
 
-    override suspend fun loginUser(email: String, password: String): Result<User> {
+    override suspend fun loginUser(email: String, password: String): Result<User?> {
         return try {
             val response = authApi.login(LoginRequest(email, password))
-            val user = response.user
+            val user = response.data?.user
             saveUser(user)
             Result.success(user)
         } catch (e: Exception) {
@@ -23,7 +23,7 @@ class UserRepositoryImpl(
         }
     }
 
-    override suspend fun saveUser(user: User): Result<Unit> {
+    override suspend fun saveUser(user: User?): Result<Unit> {
         return try {
             localUserDataSource.saveUser(user)
             Result.success(Unit)
