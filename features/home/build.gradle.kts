@@ -17,9 +17,13 @@ kotlin {
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.screenmodel)
             implementation(libs.voyager.transitions)
+            implementation(libs.voyager.koin)
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
+
+            implementation("org.jetbrains.compose.material:material-icons-extended:1.7.3")
+
 
             implementation(projects.core.model)
             implementation(projects.core.domain)

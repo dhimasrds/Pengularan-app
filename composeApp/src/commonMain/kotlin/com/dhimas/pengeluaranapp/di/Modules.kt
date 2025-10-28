@@ -1,7 +1,9 @@
 package com.dhimas.pengeluaranapp.di
 
 import com.dhimas.pengeluaranapp.core.data.coreDataModule
+import com.dhimas.pengeluaranapp.core.navigation.navigationModule
 import com.dhimas.pengeluaranapp.core.network.coreNetworkModule
+import com.dhimas.pengeluaranapp.features.home.impl.homeFeatureModule
 import com.dhimas.pengeluaranapp.features.login.impl.loginFeatureModule
 
 val appModules = listOf(
@@ -12,6 +14,8 @@ val appModules = listOf(
     apiModule,
     repositoryModule,
     viewModelModule,
-    loginFeatureModule
+    loginFeatureModule,
+    homeFeatureModule,
+    navigationModule,
 )
 

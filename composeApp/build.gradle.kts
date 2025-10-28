@@ -71,12 +71,14 @@ kotlin {
 
             // Feature modules
             implementation(projects.features.login)
+            implementation(projects.features.home)
 
             // Core modules
             implementation(projects.core.domain)
             implementation(projects.core.model)
             implementation(projects.core.network)
             implementation(projects.core.data)
+            implementation(projects.core.navigation)
         }
 
         androidMain.dependencies {

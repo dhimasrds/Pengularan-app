@@ -39,6 +39,7 @@ include(":core:database")
 include(":core:data")
 include(":core:ui")
 include(":core:designsystem")
+include(":core:navigation")
 
 // Feature modules
 include(":features:login")

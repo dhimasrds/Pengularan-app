@@ -8,5 +8,5 @@ val homeFeatureModule = module {
 }
 
 private class HomeFeatureApiImpl : HomeFeatureApi {
-    override fun entryScreen() = HomeScreen()
+    override fun entryScreen(onLogout: (() -> Unit)?) = HomeScreen(onLogout)
 }
