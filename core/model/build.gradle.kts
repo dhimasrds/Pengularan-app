@@ -34,4 +34,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    buildTypes {
+        getByName("debug") {}
+        getByName("release") {}
+        create("staging") {
+            initWith(getByName("debug"))
+        }
+    }
 }

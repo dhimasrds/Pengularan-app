@@ -11,13 +11,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.model.rememberScreenModel
+import com.dhimas.pengeluaranapp.core.domain.usecase.LoginUseCase
+import org.koin.compose.koinInject
 
 class LoginScreen(
     private val onLoginSuccess: (() -> Unit)? = null
 ) : Screen {
     @Composable
     override fun Content() {
-        val screenModel = koinScreenModel<LoginScreenModel>()
+        val loginUseCase: LoginUseCase = koinInject()
+        val screenModel = rememberScreenModel { LoginScreenModel(loginUseCase) }
+
+
         val uiState by screenModel.uiState.collectAsState()
 
         // Handle navigation on successful login

@@ -1,3 +1,6 @@
+import org.gradle.kotlin.dsl.create
+import org.gradle.kotlin.dsl.getByName
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
@@ -34,4 +37,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
+    buildTypes {
+        getByName("debug") {}
+        getByName("release") {}
+        create("staging") {
+            initWith(getByName("debug"))
+        }
+    }
 }
+

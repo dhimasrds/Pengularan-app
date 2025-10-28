@@ -6,7 +6,6 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.transitions.SlideTransition
 import com.dhimas.pengeluaranapp.di.appModules
 import com.dhimas.pengeluaranapp.features.login.api.LoginFeatureApi
-import com.dhimas.pengeluaranapp.presentation.screens.MainScreen
 import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
 
