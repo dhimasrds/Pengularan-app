@@ -8,8 +8,6 @@ import io.ktor.client.plugins.logging.*
 import io.ktor.client.plugins.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
-//import okhttp3.Dns
-//import java.net.InetAddress
 import java.util.concurrent.TimeUnit
 
 actual fun httpClient(): HttpClient = HttpClient(OkHttp) {

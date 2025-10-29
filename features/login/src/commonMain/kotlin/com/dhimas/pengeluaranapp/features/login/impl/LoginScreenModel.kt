@@ -30,6 +30,7 @@ class LoginScreenModel(
                 val password = _uiState.value.password
                 val result = loginUseCase(email, password)
                 result.onSuccess {
+                    it?.username
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         isSuccess = true

@@ -4,8 +4,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -13,65 +13,102 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
+import org.koin.compose.koinInject
 
+// ============================================================
+// Data Models
+// ============================================================
+
+internal data class Expense(
+    val title: String,
+    val amount: String,
+    val category: String
+)
+
+internal data class HomeScreenState(
+    val title: String = "Expense Tracker",
+    val userEmail: String = "", // ← Add this
+    val totalThisMonth: String = "$0.00",
+    val expenses: List<Expense> = emptyList(),
+    val isLoading: Boolean = false)
+
+// ============================================================
+// Screen (with Navigation & Dependencies)
+// ============================================================
 
 class HomeScreen(
     private val onLogout: (() -> Unit)? = null
 ) : Screen {
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
-        val navigator = LocalNavigator.currentOrThrow
+        val screenModel = koinInject<HomeScreenModel>() // ← Inject ScreenModel
+        val state by screenModel.state.collectAsState()
 
-        // Sample expense data
-        val sampleExpenses = remember {
-            listOf(
-                Expense("Groceries", "$50.00", "Food"),
-                Expense("Gas", "$30.00", "Transportation"),
-                Expense("Coffee", "$5.50", "Food"),
-                Expense("Movie Ticket", "$12.00", "Entertainment")
-            )
-        }
 
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            "Expense Tracker",
-                            fontWeight = FontWeight.Bold
-                        )
-                    },
-                    actions = {
-                        IconButton(
-                            onClick = {
-                                onLogout?.invoke()
-                            }
-                        ) {
-                            Icon(
-                                Icons.Default.ExitToApp,
-                                contentDescription = "Logout"
-                            )
-                        }
-                    }
-                )
+        HomeScreenContent(
+            state = state,
+            onLogoutClick = {
+                onLogout?.invoke()
             },
-            floatingActionButton = {
-                FloatingActionButton(
-                    onClick = {
-                        // TODO: Navigate to Add Expense screen
-                    }
-                ) {
-                    Icon(
-                        Icons.Default.Add,
-                        contentDescription = "Add Expense"
-                    )
-                }
+            onAddExpenseClick = {
+                // TODO: Navigate to Add Expense screen
             }
-        ) { paddingValues ->
+        )
+    }
+}
+
+// ============================================================
+// Stateless UI Component (Reusable & Previewable)
+// ============================================================
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+internal fun HomeScreenContent(
+    state: HomeScreenState,
+    onLogoutClick: () -> Unit,
+    onAddExpenseClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Scaffold(
+        modifier = modifier,
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        state.title,
+                        fontWeight = FontWeight.Bold
+                    )
+                },
+                actions = {
+                    IconButton(onClick = onLogoutClick) {
+                        Icon(
+                            Icons.AutoMirrored.Filled.ExitToApp,
+                            contentDescription = "Logout"
+                        )
+                    }
+                }
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(onClick = onAddExpenseClick) {
+                Icon(
+                    Icons.Default.Add,
+                    contentDescription = "Add Expense"
+                )
+            }
+        }
+    ) { paddingValues ->
+        if (state.isLoading) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        } else {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
@@ -80,28 +117,7 @@ class HomeScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 item {
-                    Card(
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer
-                        )
-                    ) {
-                        Column(
-                            modifier = Modifier.padding(16.dp)
-                        ) {
-                            Text(
-                                "Total This Month",
-                                style = MaterialTheme.typography.titleMedium,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer
-                            )
-                            Text(
-                                "$97.50",
-                                style = MaterialTheme.typography.headlineMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer
-                            )
-                        }
-                    }
+                    TotalCard(totalAmount = state.totalThisMonth)
                 }
 
                 item {
@@ -113,7 +129,7 @@ class HomeScreen(
                     )
                 }
 
-                items(sampleExpenses) { expense ->
+                items(state.expenses) { expense ->
                     ExpenseItem(expense = expense)
                 }
             }
@@ -121,11 +137,49 @@ class HomeScreen(
     }
 }
 
+// ============================================================
+// UI Components
+// ============================================================
+
 @Composable
-private fun ExpenseItem(expense: Expense) {
+private fun TotalCard(
+    totalAmount: String,
+    modifier: Modifier = Modifier
+) {
+    Spacer(modifier = Modifier.height(16.dp))
     Card(
-        modifier = Modifier.fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        modifier = modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer
+        )
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text(
+                "Total This Month",
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onPrimaryContainer
+            )
+            Text(
+                totalAmount,
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onPrimaryContainer
+            )
+        }
+    }
+}
+
+@Composable
+private fun ExpenseItem(
+    expense: Expense,
+    modifier: Modifier = Modifier
+) {
+    Spacer(modifier = Modifier.height(8.dp))
+    Card(
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        modifier = modifier.fillMaxWidth(),
     ) {
         Row(
             modifier = Modifier
@@ -159,8 +213,4 @@ private fun ExpenseItem(expense: Expense) {
     }
 }
 
-private data class Expense(
-    val title: String,
-    val amount: String,
-    val category: String
-)
+

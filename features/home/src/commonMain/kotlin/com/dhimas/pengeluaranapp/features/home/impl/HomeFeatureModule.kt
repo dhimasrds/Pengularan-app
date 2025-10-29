@@ -5,6 +5,11 @@ import org.koin.dsl.module
 
 val homeFeatureModule = module {
     single<HomeFeatureApi> { HomeFeatureApiImpl() }
+    factory {
+        HomeScreenModel(
+            homeUseCase = get() // ← Koin inject
+        )
+    }
 }
 
 private class HomeFeatureApiImpl : HomeFeatureApi {

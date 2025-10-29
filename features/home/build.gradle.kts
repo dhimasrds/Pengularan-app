@@ -7,6 +7,7 @@ plugins {
 
 kotlin {
     androidTarget()
+    jvm("desktop")
     listOf(iosX64(), iosArm64(), iosSimulatorArm64())
 
     sourceSets {
@@ -21,6 +22,8 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
+            implementation(compose.components.uiToolingPreview)
+
 
             implementation("org.jetbrains.compose.material:material-icons-extended:1.7.3")
 
@@ -33,6 +36,13 @@ kotlin {
         }
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
+            implementation(compose.preview)
+            implementation(compose.uiTooling)
+        }
+        val desktopMain by getting {
+            dependencies {
+                implementation(compose.desktop.currentOs)
+            }
         }
         iosMain.dependencies { }
     }
